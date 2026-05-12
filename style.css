@@ -1,0 +1,104 @@
+body{
+    margin:0;
+    padding:0;
+    font-family:Arial;
+    background-image:url('background.jpg');
+    background-size:cover;
+    background-position:center;
+    min-height:100vh;
+}
+
+.overlay{
+    width:100%;
+    min-height:100vh;
+    background:rgba(0,0,0,0.6);
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+    box-sizing:border-box;
+}
+
+.container{
+    width:100%;
+    max-width:500px;
+
+    background:rgba(255,255,255,0.12);
+
+    backdrop-filter:blur(10px);
+
+    padding:30px;
+
+    border-radius:20px;
+
+    color:white;
+
+    box-shadow:0px 0px 20px black;
+
+    text-align:center;
+}
+
+h1{
+    margin-bottom:20px;
+}
+
+input,
+textarea,
+button{
+    width:100%;
+
+    padding:12px;
+
+    margin-top:12px;
+
+    border:none;
+
+    border-radius:10px;
+
+    box-sizing:border-box;
+
+    font-size:16px;
+}
+
+textarea{
+    height:300px;
+    resize:vertical;
+}
+
+button{
+    background:#ff7b54;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:bold;
+}
+
+button:hover{
+    background:#ff5722;
+}
+
+.memoryCard{
+    margin-top:15px;
+}
+
+.dateButton{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,0.2);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+}
+
+.dateButton:hover{
+    background:rgba(255,255,255,0.35);
+}
+
+a{
+    color:gold;
+    text-decoration:none;
+}

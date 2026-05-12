@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Write Diary</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body onload="loadSelectedMemory()">
+
+    <div class="overlay">
+
+        <div class="container">
+
+            <h1>✍ Write Diary</h1>
+
+            <input
+                type="date"
+                id="memoryDate"
+            >
+
+            <textarea
+                id="memoryText"
+                placeholder="Write your memory here..."
+            ></textarea>
+
+            <button onclick="saveMemory()">
+                Save Memory
+            </button>
+
+            <button onclick="deleteMemory()">
+                Delete Memory
+            </button>
+
+            <button onclick="window.location.href='memories.html'">
+                View Memories
+            </button>
+
+            <button onclick="window.location.href='home.html'">
+                Home
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+    <script>
+
+        // AUTO TODAY DATE
+
+        const today =
+        new Date().toISOString().split("T")[0];
+
+        if(!localStorage.getItem("selectedDate")){
+
+            document.getElementById("memoryDate").value =
+            today;
+
+        }
+
+    </script>
+
+</body>
+
+</html>

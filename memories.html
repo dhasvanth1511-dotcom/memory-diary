@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Memories</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body onload="loadMemories()">
+
+    <div class="overlay">
+
+        <div class="container">
+
+            <h1>📖 Your Memories</h1>
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by date..."
+                onkeyup="searchMemory()"
+            >
+
+            <div id="memoryList"></div>
+
+            <button onclick="window.location.href='home.html'">
+                Home
+            </button>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
+
+</body>
+
+</html>
