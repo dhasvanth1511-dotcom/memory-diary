@@ -2,50 +2,74 @@
 <html>
 
 <head>
-    <title>Login</title>
+
+    <title>Memory Diary</title>
 
     <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
 <body>
 
-    <div class="overlay">
+<div class="overlay">
 
-        <div class="container">
+<div class="container">
 
-            <h1>📖 Memory Diary</h1>
+    <h1>
+        📖 Memory Diary
+    </h1>
 
-            <input
-                type="text"
-                id="loginUsername"
-                placeholder="Username">
+    <p class="subtitle">
 
-            <input
-                type="password"
-                id="loginPassword"
-                placeholder="Password">
+        Your Luxury Digital Memory Vault
 
-            <button onclick="login()">
-                Login
-            </button>
+    </p>
 
-            <br>
+    <input
+        type="text"
+        id="loginUsername"
+        placeholder="Enter Username"
+    >
 
-            <a href="signup.html">
-                Create New User
-            </a>
+    <input
+        type="password"
+        id="loginPassword"
+        placeholder="Enter Password"
+    >
 
-            <br><br>
+    <button onclick="login()">
 
-            <a href="privacy.html">
-                Privacy Policy
-            </a>
+        Login
 
-        </div>
+    </button>
 
-    </div>
+    <button onclick="location.href='signup.html'">
 
-    <script src="script.js"></script>
+        ✨ Create New User
+
+    </button>
+
+    <br><br>
+
+    <center>
+
+        <a href="privacy.html">
+
+            Privacy Policy & Terms
+
+        </a>
+
+    </center>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
 
 </body>
 

@@ -1,47 +1,104 @@
 <!DOCTYPE html>
+
 <html>
 
 <head>
 
-    <title>Create User</title>
+    <title>Create Account</title>
 
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
 
 </head>
 
 <body>
 
-    <div class="overlay">
+    <div class="loginContainer">
 
-        <div class="container">
+        <h1>Create Account</h1>
 
-            <h1>Create User</h1>
 
-            <input
-                type="text"
-                id="signupUsername"
-                placeholder="New Username"
-            >
 
-            <input
-                type="password"
-                id="signupPassword"
-                placeholder="New Password"
-            >
 
-            <button onclick="createUser()">
-                Create User
-            </button>
 
-            <br><br>
+        <input
 
-            <a href="index.html">
-                Back To Login
-            </a>
+            type="text"
 
-        </div>
+            id="signupUsername"
+
+            placeholder="Enter Username"
+
+        >
+
+
+
+
+
+        <input
+
+            type="password"
+
+            id="signupPassword"
+
+            placeholder="Enter Password"
+
+        >
+
+
+
+
+
+        <input
+
+            type="password"
+
+            id="signupPin"
+
+            placeholder="Create 4 Digit PIN"
+
+        >
+
+
+
+
+
+        <button onclick="createUser()">
+
+            Create User
+
+        </button>
+
+
+
+
+
+        <br><br>
+
+
+
+
+
+        <a href="index.html">
+
+            Back To Login
+
+        </a>
 
     </div>
+
+
+
+
 
     <script src="script.js"></script>
 

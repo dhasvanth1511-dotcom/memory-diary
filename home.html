@@ -7,35 +7,108 @@
 
     <link rel="stylesheet" href="style.css">
 
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 </head>
 
 <body onload="loadHome()">
 
-    <div class="overlay">
+<div class="overlay">
 
-        <div class="container">
+<div class="container">
 
-            <h1 id="welcomeUser">
-                Hi User
-            </h1>
+    <h1 id="welcomeText">
 
-            <button onclick="window.location.href='write.html'">
-                Write Today's Diary
-            </button>
+    </h1>
 
-            <button onclick="window.location.href='memories.html'">
-                View Old Memories
-            </button>
 
-            <button onclick="logout()">
-                Logout
-            </button>
 
-        </div>
+
+
+    <div class="streakBox">
+
+        <h2 id="streakText">
+
+        </h2>
 
     </div>
 
-    <script src="script.js"></script>
+
+
+
+
+    <div class="dailyReminder">
+
+        ✨ Write today’s memory before the day ends.
+    </div>
+
+
+
+
+
+    <button onclick="location.href='editor.html'">
+
+        ✍ Write Diary
+
+    </button>
+
+
+
+
+
+    <button onclick="location.href='timeline.html'">
+
+        📚 All Memories
+
+    </button>
+
+
+
+
+
+    <button onclick="location.href='favorites.html'">
+
+        🌟 Favorite Memories
+
+    </button>
+
+
+
+
+
+    <button onclick="location.href='locked.html'">
+
+        🔒 Locked Memories
+
+    </button>
+
+
+
+
+
+    <button onclick="location.href='privacy.html'">
+
+        🔐 Privacy Policy
+
+    </button>
+
+
+
+
+
+    <button onclick="logout()">
+
+        🚪 Logout
+
+    </button>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
 
 </body>
 

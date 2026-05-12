@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Memory Timeline</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body onload="loadTimeline()">
+
+<div class="overlay">
+
+<div class="container">
+
+    <h1>
+        📚 Memory Timeline
+    </h1>
+
+
+
+
+
+    <input
+        type="date"
+        id="searchDate"
+        onchange="searchByDate()"
+    >
+
+
+
+
+
+    <input
+        type="text"
+        id="searchInput"
+        placeholder="Search memories..."
+        onkeyup="searchTimeline()"
+    >
+
+
+
+
+
+    <h2 class="sectionTitle">
+        🌟 Favorite Memories
+    </h2>
+
+    <div id="favoriteContainer">
+
+    </div>
+
+
+
+
+
+    <h2 class="sectionTitle">
+        🔒 Locked Memories
+    </h2>
+
+    <div id="lockedContainer">
+
+    </div>
+
+
+
+
+
+    <h2 class="sectionTitle">
+        📖 All Memories
+    </h2>
+
+    <div id="timelineContainer">
+
+    </div>
+
+
+
+
+
+    <button onclick="location.href='home.html'">
+
+        ⬅ Back Home
+
+    </button>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

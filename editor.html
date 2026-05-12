@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Diary Editor</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+</head>
+
+<body onload="loadTodayDiary()">
+
+<div class="overlay">
+
+<div class="container">
+
+    <h1>
+        ✍ Diary Editor
+    </h1>
+
+
+
+
+
+    <input
+        type="date"
+        id="diaryDate"
+    >
+
+
+
+
+
+    <input
+        type="text"
+        id="diaryTitle"
+        placeholder="Diary Title"
+    >
+
+
+
+
+
+    <textarea
+        id="diaryContent"
+        placeholder="Write your memories..."
+    ></textarea>
+
+
+
+
+
+    <label class="uploadLabel">
+
+        📸 Upload Memory Image
+
+    </label>
+
+
+
+
+
+    <input
+        type="file"
+        id="memoryImage"
+        accept="image/*"
+    >
+
+
+
+
+
+    <select id="diaryMood">
+
+        <option>
+            😊 Happy
+        </option>
+
+        <option>
+            😢 Sad
+        </option>
+
+        <option>
+            😍 Excited
+        </option>
+
+        <option>
+            😌 Calm
+        </option>
+
+        <option>
+            😡 Angry
+        </option>
+
+    </select>
+
+
+
+
+
+    <div class="checkRow">
+
+        <label>
+            ⭐ Favorite Memory
+        </label>
+
+        <input
+            type="checkbox"
+            id="favoriteCheck"
+        >
+
+    </div>
+
+
+
+
+
+    <div class="checkRow">
+
+        <label>
+            🔒 Lock Memory
+        </label>
+
+        <input
+            type="checkbox"
+            id="lockedCheck"
+        >
+
+    </div>
+
+
+
+
+
+    <button onclick="saveDiary()">
+
+        Save Diary
+
+    </button>
+
+
+
+
+
+    <button onclick="location.href='home.html'">
+
+        Home
+
+    </button>
+
+</div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>

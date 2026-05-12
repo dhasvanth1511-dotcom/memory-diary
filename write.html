@@ -3,43 +3,72 @@
 
 <head>
 
-    <title>Write Diary</title>
+    <title>Write Memory</title>
 
     <link rel="stylesheet" href="style.css">
 
 </head>
 
-<body onload="loadSelectedMemory()">
+<body>
 
     <div class="overlay">
 
         <div class="container">
 
-            <h1>✍ Write Diary</h1>
+            <h1>✍ Write Memory</h1>
 
             <input
-                type="date"
-                id="memoryDate"
+                type="text"
+                id="memoryTitle"
+                placeholder="Memory Title"
             >
 
             <textarea
                 id="memoryText"
-                placeholder="Write your memory here..."
+                placeholder="Write your memory..."
             ></textarea>
+
+            <select id="memoryMood">
+
+                <option>Happy</option>
+
+                <option>Sad</option>
+
+                <option>Angry</option>
+
+                <option>Calm</option>
+
+                <option>Excited</option>
+
+            </select>
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="favoriteCheck"
+                >
+
+                ⭐ Favorite Memory
+
+            </label>
+
+            <label>
+
+                <input
+                    type="checkbox"
+                    id="lockCheck"
+                >
+
+                🔒 Lock Memory
+
+            </label>
 
             <button onclick="saveMemory()">
                 Save Memory
             </button>
 
-            <button onclick="deleteMemory()">
-                Delete Memory
-            </button>
-
-            <button onclick="window.location.href='memories.html'">
-                View Memories
-            </button>
-
-            <button onclick="window.location.href='home.html'">
+            <button onclick="location.href='home.html'">
                 Home
             </button>
 
@@ -48,22 +77,6 @@
     </div>
 
     <script src="script.js"></script>
-
-    <script>
-
-        // AUTO TODAY DATE
-
-        const today =
-        new Date().toISOString().split("T")[0];
-
-        if(!localStorage.getItem("selectedDate")){
-
-            document.getElementById("memoryDate").value =
-            today;
-
-        }
-
-    </script>
 
 </body>
 

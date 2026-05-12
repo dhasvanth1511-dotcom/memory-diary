@@ -1,104 +1,476 @@
 body{
-    margin:0;
-    padding:0;
-    font-family:Arial;
-    background-image:url('background.jpg');
-    background-size:cover;
-    background-position:center;
-    min-height:100vh;
+
+    margin: 0;
+
+    padding: 0;
+
+    font-family: Arial, sans-serif;
+
+    background-image: url("memory_diary_background.jpg");
+
+    background-size: cover;
+
+    background-position: center;
+
+    background-attachment: fixed;
+
+    color: white;
+
 }
+
+
+
+
 
 .overlay{
-    width:100%;
-    min-height:100vh;
-    background:rgba(0,0,0,0.6);
 
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    min-height: 100vh;
 
-    padding:20px;
-    box-sizing:border-box;
+    background: rgba(0,0,0,0.65);
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 30px;
+
 }
+
+
+
+
 
 .container{
-    width:100%;
-    max-width:500px;
 
-    background:rgba(255,255,255,0.12);
+    width: 100%;
 
-    backdrop-filter:blur(10px);
+    max-width: 750px;
 
-    padding:30px;
+    background: rgba(255,255,255,0.08);
 
-    border-radius:20px;
+    backdrop-filter: blur(14px);
 
-    color:white;
+    border-radius: 30px;
 
-    box-shadow:0px 0px 20px black;
+    padding: 35px;
 
-    text-align:center;
+    box-shadow: 0 0 30px rgba(0,0,0,0.5);
+
+    text-align: center;
+
 }
+
+
+
+
 
 h1{
-    margin-bottom:20px;
+
+    margin-bottom: 25px;
+
+    font-size: 38px;
+
 }
+
+
+
+
+
+.sectionTitle{
+
+    text-align: left;
+
+    margin-top: 40px;
+
+    margin-bottom: 15px;
+
+    font-size: 24px;
+
+}
+
+
+
+
+
+.subtitle{
+
+    opacity: 0.8;
+
+    margin-bottom: 30px;
+
+}
+
+
+
+
 
 input,
 textarea,
-button{
-    width:100%;
+select{
 
-    padding:12px;
+    width: 100%;
 
-    margin-top:12px;
+    padding: 15px;
 
-    border:none;
+    margin-top: 15px;
 
-    border-radius:10px;
+    border: none;
 
-    box-sizing:border-box;
+    border-radius: 15px;
 
-    font-size:16px;
+    background: rgba(255,255,255,0.12);
+
+    color: white;
+
+    font-size: 16px;
+
+    box-sizing: border-box;
+
 }
+
+
+
+
 
 textarea{
-    height:300px;
-    resize:vertical;
+
+    min-height: 220px;
+
+    resize: vertical;
+
 }
+
+
+
+
+
+input::placeholder,
+textarea::placeholder{
+
+    color: rgba(255,255,255,0.7);
+
+}
+
+
+
+
 
 button{
-    background:#ff7b54;
-    color:white;
-    cursor:pointer;
-    transition:0.3s;
-    font-weight:bold;
+
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 20px;
+
+    border: none;
+
+    border-radius: 15px;
+
+    background: gold;
+
+    color: black;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+
 }
+
+
+
+
 
 button:hover{
-    background:#ff5722;
+
+    transform: scale(1.03);
+
 }
+
+
+
+
 
 .memoryCard{
-    margin-top:15px;
+
+    background: rgba(255,255,255,0.08);
+
+    backdrop-filter: blur(10px);
+
+    border-radius: 20px;
+
+    padding: 20px;
+
+    margin-top: 20px;
+
+    text-align: left;
+
+    box-shadow: 0 0 20px rgba(0,0,0,0.4);
+
 }
 
-.dateButton{
-    width:100%;
-    padding:15px;
-    border:none;
-    border-radius:12px;
-    background:rgba(255,255,255,0.2);
-    color:white;
-    font-size:18px;
-    cursor:pointer;
+
+
+
+
+.memoryImage{
+
+    width: 100%;
+
+    height: 220px;
+
+    object-fit: cover;
+
+    border-radius: 15px;
+
+    margin-bottom: 15px;
+
 }
 
-.dateButton:hover{
-    background:rgba(255,255,255,0.35);
+
+
+
+
+.viewImage{
+
+    width: 100%;
+
+    max-height: 450px;
+
+    object-fit: cover;
+
+    border-radius: 20px;
+
+    margin-bottom: 20px;
+
 }
 
-a{
-    color:gold;
-    text-decoration:none;
+
+
+
+
+.badge{
+
+    display: inline-block;
+
+    padding: 8px 14px;
+
+    border-radius: 30px;
+
+    background: gold;
+
+    color: black;
+
+    margin-top: 10px;
+
+    margin-right: 10px;
+
+    font-weight: bold;
+
+}
+
+
+
+
+
+.checkRow{
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 15px;
+
+}
+
+
+
+
+
+.uploadLabel{
+
+    display: block;
+
+    margin-top: 20px;
+
+    margin-bottom: 10px;
+
+    font-size: 18px;
+
+    text-align: left;
+
+}
+
+
+
+
+
+#timelineContainer,
+#favoriteContainer,
+#lockedContainer{
+
+    margin-top: 20px;
+
+}
+
+
+
+
+
+input[type="date"]{
+
+    cursor: pointer;
+
+}
+
+
+
+
+
+.policyBox{
+
+    background: rgba(255,255,255,0.08);
+
+    padding: 20px;
+
+    border-radius: 18px;
+
+    margin-top: 20px;
+
+    text-align: left;
+
+}
+
+
+
+
+
+.policyBox ul{
+
+    padding-left: 20px;
+
+}
+
+
+
+
+
+.policyBox li{
+
+    margin-top: 10px;
+
+    line-height: 1.7;
+
+}
+
+
+
+
+
+.mailButton{
+
+    display: inline-block;
+
+    margin-top: 15px;
+
+    padding: 12px 20px;
+
+    border-radius: 15px;
+
+    background: gold;
+
+    color: black;
+
+    text-decoration: none;
+
+    font-weight: bold;
+
+}
+
+
+
+
+
+.streakBox{
+
+    background: rgba(255,215,0,0.15);
+
+    border: 2px solid gold;
+
+    border-radius: 20px;
+
+    padding: 15px;
+
+    margin-bottom: 25px;
+
+}
+
+
+
+
+
+.dailyReminder{
+
+    background: rgba(255,255,255,0.08);
+
+    border-radius: 18px;
+
+    padding: 15px;
+
+    margin-bottom: 20px;
+
+    font-size: 18px;
+
+}
+
+
+
+
+
+hr{
+
+    border: 1px solid rgba(255,255,255,0.2);
+
+    margin-top: 25px;
+
+    margin-bottom: 25px;
+
+}
+
+
+
+
+
+@media(max-width:768px){
+
+    .container{
+
+        padding: 20px;
+
+    }
+
+
+
+    h1{
+
+        font-size: 30px;
+
+    }
+
+
+
+    .sectionTitle{
+
+        font-size: 22px;
+
+    }
+
 }
