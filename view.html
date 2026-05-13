@@ -7,57 +7,45 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 </head>
 
-<body onload="loadViewDiary()">
+<body onload="loadSingleMemory()">
 
-<div class="overlay">
+    <!-- TOP NAVBAR -->
 
-<div class="container">
+    <div class="navbar">
 
-    <div id="viewContainer">
+        <div class="nav-left">
+
+            <button
+                class="backBtn"
+                onclick="location.href='memories.html'">
+
+                ← Back
+
+            </button>
+
+            <div class="logo">
+                📖 Memory View
+            </div>
+
+        </div>
 
     </div>
 
+    <div class="overlay">
 
+        <div class="container">
 
+            <div id="singleMemoryContainer">
 
+            </div>
 
-    <button onclick="editOpenedDiary()">
+        </div>
 
-        ✏ Edit Diary
+    </div>
 
-    </button>
-
-
-
-
-
-    <button onclick="deleteDiary()">
-
-        🗑 Delete Diary
-
-    </button>
-
-
-
-
-
-    <button onclick="location.href='timeline.html'">
-
-        ⬅ Back
-
-    </button>
-
-</div>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 

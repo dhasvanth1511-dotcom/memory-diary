@@ -1,104 +1,55 @@
 <!DOCTYPE html>
-
 <html>
 
 <head>
+    <title>Create User</title>
 
-    <title>Create Account</title>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <link
-        rel="stylesheet"
-        href="style.css"
-    >
-
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <div class="loginContainer">
+    <!-- Back Button -->
+    <button
+        class="backBtn"
+        onclick="window.location.href='index.html'">
 
-        <h1>Create Account</h1>
+        ← Back
+    </button>
 
+    <div class="container signup-container">
 
+        <h1>✨ Join Memory Diary</h1>
 
-
+        <p class="subtitle">
+            Create your private world of memories
+        </p>
 
         <input
-
             type="text"
-
             id="signupUsername"
-
-            placeholder="Enter Username"
-
-        >
-
-
-
-
+            placeholder="Choose Username">
 
         <input
-
             type="password"
-
             id="signupPassword"
-
-            placeholder="Enter Password"
-
-        >
-
-
-
-
-
-        <input
-
-            type="password"
-
-            id="signupPin"
-
-            placeholder="Create 4 Digit PIN"
-
-        >
-
-
-
-
+            placeholder="Choose Password">
 
         <button onclick="createUser()">
-
-            Create User
-
+            🚀 Create Account
         </button>
 
+        <div class="login-link">
 
+            Already have an account?
 
+            <a href="index.html">
+                Login Here
+            </a>
 
-
-        <br><br>
-
-
-
-
-
-        <a href="index.html">
-
-            Back To Login
-
-        </a>
+        </div>
 
     </div>
-
-
-
-
 
     <script src="script.js"></script>
 

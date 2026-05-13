@@ -1,75 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-
-    <title>Memory Diary</title>
-
-    <link rel="stylesheet" href="style.css">
 
     <meta charset="UTF-8">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <title>Memory Diary</title>
+
+    <link rel="stylesheet" href="style.css">
+
 </head>
 
 <body>
 
-<div class="overlay">
+    <!-- LOGIN PAGE -->
 
-<div class="container">
+    <div class="login-page">
 
-    <h1>
-        📖 Memory Diary
-    </h1>
+        <div class="login-box">
 
-    <p class="subtitle">
+            <h1>
+                📖 Memory Diary
+            </h1>
 
-        Your Luxury Digital Memory Vault
+            <p class="subtitle">
+                Your Luxury Digital Memory Vault
+            </p>
 
-    </p>
+            <input
+                type="text"
+                id="loginUsername"
+                placeholder="Enter Username"
+            >
 
-    <input
-        type="text"
-        id="loginUsername"
-        placeholder="Enter Username"
-    >
+            <input
+                type="password"
+                id="loginPassword"
+                placeholder="Enter Password"
+            >
 
-    <input
-        type="password"
-        id="loginPassword"
-        placeholder="Enter Password"
-    >
+            <button onclick="login()">
+                Login
+            </button>
 
-    <button onclick="login()">
+            <button
+                class="create-btn"
+                onclick="window.location.href='signup.html'"
+            >
+                ✨ Create New User
+            </button>
 
-        Login
+            <div class="login-link">
 
-    </button>
+                <a href="privacy.html">
+                    Privacy Policy & Terms
+                </a>
 
-    <button onclick="location.href='signup.html'">
+            </div>
 
-        ✨ Create New User
+        </div>
 
-    </button>
+    </div>
 
-    <br><br>
-
-    <center>
-
-        <a href="privacy.html">
-
-            Privacy Policy & Terms
-
-        </a>
-
-    </center>
-
-</div>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 

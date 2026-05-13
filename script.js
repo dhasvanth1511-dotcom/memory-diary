@@ -1,306 +1,153 @@
-let users = JSON.parse(localStorage.getItem("users")) || [];
-
-let diaries = JSON.parse(localStorage.getItem("diaries")) || [];
-
-
+/* =========================================
+   MEMORY DIARY - COMPLETE SCRIPT
+========================================= */
 
 
+/* =========================================
+   CURRENT USER
+========================================= */
 
-function saveUsers(){
+let currentUser =
+localStorage.getItem("currentUser");
+
+
+/* =========================================
+   LOGIN
+========================================= */
+
+function login(){
+
+    let username =
+    document.getElementById("loginUsername").value;
+
+    let password =
+    document.getElementById("loginPassword").value;
+
+    let users =
+    JSON.parse(
+        localStorage.getItem("users")
+    ) || [];
+
+    let validUser =
+    users.find(user =>
+
+        user.username === username &&
+        user.password === password
+
+    );
+
+    if(validUser){
+
+        localStorage.setItem(
+            "currentUser",
+            username
+        );
+
+        showToast(
+            "Login successful ✨"
+        );
+
+        setTimeout(()=>{
+
+            window.location.href =
+            "home.html";
+
+        },1000);
+
+    }else{
+
+        alert(
+            "Invalid username or password"
+        );
+    }
+}
+
+
+/* =========================================
+   SIGNUP
+========================================= */
+
+function signup(){
+
+    let username =
+    document.getElementById("signupUsername").value;
+
+    let password =
+    document.getElementById("signupPassword").value;
+
+    let confirmPassword =
+    document.getElementById("confirmPassword").value;
+
+    if(
+        username.trim() === "" ||
+        password.trim() === ""
+    ){
+
+        alert(
+            "Please fill all fields"
+        );
+
+        return;
+    }
+
+    if(password !== confirmPassword){
+
+        alert(
+            "Passwords do not match"
+        );
+
+        return;
+    }
+
+    let users =
+    JSON.parse(
+        localStorage.getItem("users")
+    ) || [];
+
+    let userExists =
+    users.find(user =>
+
+        user.username === username
+    );
+
+    if(userExists){
+
+        alert(
+            "Username already exists"
+        );
+
+        return;
+    }
+
+    users.push({
+
+        username:username,
+        password:password
+    });
 
     localStorage.setItem(
 
         "users",
 
         JSON.stringify(users)
-
     );
 
-}
-
-
-
-
-
-function saveDiaries(){
-
-    localStorage.setItem(
-
-        "diaries",
-
-        JSON.stringify(diaries)
-
+    showToast(
+        "Account created successfully ✨"
     );
 
-}
-
-
-
-
-
-function createUser(){
-
-    let username =
-
-    document.getElementById(
-        "signupUsername"
-    ).value.trim();
-
-
-
-    let password =
-
-    document.getElementById(
-        "signupPassword"
-    ).value.trim();
-
-
-
-    let pin =
-
-    document.getElementById(
-        "signupPin"
-    ).value.trim();
-
-
-
-    if(
-
-        username === "" ||
-
-        password === "" ||
-
-        pin === ""
-
-    ){
-
-        alert("Fill all details");
-
-        return;
-
-    }
-
-
-
-    let existingUser = users.find(
-
-        user => user.username === username
-
-    );
-
-
-
-    if(existingUser){
-
-        alert("Username already exists");
-
-        return;
-
-    }
-
-
-
-    users.push({
-
-        username:username,
-
-        password:password,
-
-        pin:pin
-
-    });
-
-
-
-    saveUsers();
-
-
-
-    alert("User created successfully");
-
-
-
-    window.location.href =
-
-    "index.html";
-
-}
-
-
-
-
-
-function login(){
-
-    let username =
-
-    document.getElementById(
-        "loginUsername"
-    ).value.trim();
-
-
-
-    let password =
-
-    document.getElementById(
-        "loginPassword"
-    ).value.trim();
-
-
-
-    let foundUser = users.find(
-
-        user =>
-
-        user.username === username &&
-
-        user.password === password
-
-    );
-
-
-
-    if(foundUser){
-
-        localStorage.setItem(
-
-            "currentUser",
-
-            username
-
-        );
-
-
+    setTimeout(()=>{
 
         window.location.href =
+        "index.html";
 
-        "home.html";
-
-    }
-
-    else{
-
-        alert("Wrong username or password");
-
-    }
-
+    },1000);
 }
 
 
-
-
-
-function loadHome(){
-
-    let currentUser =
-
-    localStorage.getItem(
-        "currentUser"
-    );
-
-
-
-    document.getElementById(
-        "welcomeText"
-    ).innerHTML =
-
-    `✨ Welcome ${currentUser}`;
-
-
-
-    calculateStreak();
-
-
-
-    checkTodayReminder();
-
-}
-
-
-
-
-
-function calculateStreak(){
-
-    let currentUser =
-
-    localStorage.getItem(
-        "currentUser"
-    );
-
-
-
-    let userDiaries = diaries.filter(
-
-        diary => diary.username === currentUser
-
-    );
-
-
-
-    let streak = userDiaries.length;
-
-
-
-    document.getElementById(
-        "streakText"
-    ).innerHTML =
-
-    `🔥 ${streak} Memory Streak`;
-
-}
-
-
-
-
-
-function checkTodayReminder(){
-
-    let currentUser =
-
-    localStorage.getItem(
-        "currentUser"
-    );
-
-
-
-    let today =
-
-    new Date().toISOString().split("T")[0];
-
-
-
-    let todayDiary = diaries.find(
-
-        diary =>
-
-        diary.username === currentUser &&
-
-        diary.date === today
-
-    );
-
-
-
-    if(!todayDiary){
-
-        setTimeout(() => {
-
-            alert(
-
-                "✨ You haven't written today's memory yet."
-
-            );
-
-        }, 1200);
-
-    }
-
-}
-
-
-
-
+/* =========================================
+   LOGOUT
+========================================= */
 
 function logout(){
 
@@ -308,950 +155,607 @@ function logout(){
         "currentUser"
     );
 
-
-
     window.location.href =
-
     "index.html";
-
 }
 
 
-
-
-
-function loadTodayDiary(){
-
-    let todayInput =
-
-    document.getElementById(
-        "diaryDate"
-    );
-
-
-
-    let today =
-
-    new Date().toISOString().split("T")[0];
-
-
-
-    let editDate =
-
-    localStorage.getItem(
-        "editDate"
-    );
-
-
-
-    if(editDate){
-
-        todayInput.value = editDate;
-
-        localStorage.removeItem(
-            "editDate"
-        );
-
-    }
-
-    else{
-
-        todayInput.value = today;
-
-    }
-
-
-
-    loadDiaryByDate();
-
-
-
-    todayInput.addEventListener(
-
-        "change",
-
-        loadDiaryByDate
-
-    );
-
-
-
-    loadDraft();
-
-}
-
-
-
-
-
-function loadDiaryByDate(){
-
-    let currentUser =
-
-    localStorage.getItem(
-        "currentUser"
-    );
-
-
-
-    let selectedDate =
-
-    document.getElementById(
-        "diaryDate"
-    ).value;
-
-
-
-    let existingDiary = diaries.find(
-
-        diary =>
-
-        diary.username === currentUser &&
-
-        diary.date === selectedDate
-
-    );
-
-
-
-    if(existingDiary){
-
-        document.getElementById(
-            "diaryTitle"
-        ).value = existingDiary.title;
-
-
-
-        document.getElementById(
-            "diaryContent"
-        ).value = existingDiary.content;
-
-
-
-        document.getElementById(
-            "diaryMood"
-        ).value = existingDiary.mood;
-
-
-
-        document.getElementById(
-            "favoriteCheck"
-        ).checked = existingDiary.favorite;
-
-
-
-        document.getElementById(
-            "lockedCheck"
-        ).checked = existingDiary.locked;
-
-    }
-
-    else{
-
-        document.getElementById(
-            "diaryTitle"
-        ).value = "";
-
-
-
-        document.getElementById(
-            "diaryContent"
-        ).value = "";
-
-
-
-        document.getElementById(
-            "diaryMood"
-        ).value = "😊 Happy";
-
-
-
-        document.getElementById(
-            "favoriteCheck"
-        ).checked = false;
-
-
-
-        document.getElementById(
-            "lockedCheck"
-        ).checked = false;
-
-    }
-
-}
-
-
-
-
-
-function saveDiary(){
-
-    let currentUser =
-
-    localStorage.getItem(
-        "currentUser"
-    );
-
-
-
-    let today =
-
-    document.getElementById(
-        "diaryDate"
-    ).value;
-
-
+/* =========================================
+   SAVE MEMORY
+========================================= */
+
+function saveMemory(){
 
     let title =
-
-    document.getElementById(
-        "diaryTitle"
-    ).value;
-
-
+    document.getElementById("title").value;
 
     let content =
-
-    document.getElementById(
-        "diaryContent"
-    ).value;
-
-
+    document.getElementById("content").value;
 
     let mood =
-
-    document.getElementById(
-        "diaryMood"
-    ).value;
-
-
-
-    let favorite =
-
-    document.getElementById(
-        "favoriteCheck"
-    ).checked;
-
-
-
-    let locked =
-
-    document.getElementById(
-        "lockedCheck"
-    ).checked;
-
-
+    document.getElementById("mood").value;
 
     let imageInput =
+    document.getElementById("image");
 
-    document.getElementById(
-        "memoryImage"
-    );
+    let favorite =
+    document.getElementById("favorite").checked;
 
-
-
-    let imageFile =
-
-    imageInput.files[0];
+    let locked =
+    document.getElementById("locked").checked;
 
 
+    /* AUTO TODAY DATE */
 
-    if(content.trim() === ""){
+    let today =
+    new Date()
+    .toISOString()
+    .split("T")[0];
 
-        alert("Write something");
+
+    /* VALIDATION */
+
+    if(
+        title.trim() === "" ||
+        content.trim() === ""
+    ){
+
+        showToast(
+            "Please fill all fields"
+        );
 
         return;
-
     }
 
 
+    /* GET MEMORIES */
 
-    let existingDiary = diaries.find(
+    let memories =
+    JSON.parse(
+        localStorage.getItem("memories")
+    ) || [];
 
-        diary =>
 
-        diary.username === currentUser &&
+    /* ONLY ONE ENTRY PER DAY */
 
-        diary.date === today
+    let alreadyExists =
+    memories.find(memory =>
 
+        memory.date === today
     );
 
+    if(alreadyExists){
+
+        showToast(
+            "You already wrote today's diary ✨"
+        );
+
+        return;
+    }
 
 
-    if(imageFile){
-
-        let reader = new FileReader();
+    let imageData = "";
 
 
+    if(
+        imageInput &&
+        imageInput.files[0]
+    ){
+
+        let reader =
+        new FileReader();
 
         reader.onload = function(e){
 
-            saveDiaryData(e.target.result);
+            imageData =
+            e.target.result;
 
+            saveFinalMemory();
         };
 
+        reader.readAsDataURL(
+            imageInput.files[0]
+        );
 
+    }else{
 
-        reader.readAsDataURL(imageFile);
-
-    }
-
-    else{
-
-        saveDiaryData(null);
-
+        saveFinalMemory();
     }
 
 
+    function saveFinalMemory(){
 
-    function saveDiaryData(imageData){
+        let memory = {
 
-        if(existingDiary){
+            title:title,
 
-            existingDiary.title = title;
+            content:content,
 
-            existingDiary.content = content;
+            mood:mood,
 
-            existingDiary.mood = mood;
+            date:today,
 
-            existingDiary.favorite = favorite;
+            favorite:favorite,
 
-            existingDiary.locked = locked;
+            locked:locked,
 
+            image:imageData
+        };
 
-
-            if(imageData){
-
-                existingDiary.image = imageData;
-
-            }
-
-        }
-
-        else{
-
-            diaries.push({
-
-                id:Date.now(),
-
-                username:currentUser,
-
-                date:today,
-
-                title:title,
-
-                content:content,
-
-                mood:mood,
-
-                favorite:favorite,
-
-                locked:locked,
-
-                image:imageData
-
-            });
-
-        }
-
-
-
-        saveDiaries();
-
-
-
-        alert("Diary saved successfully");
-
-
-
-        window.location.href =
-
-        "timeline.html";
-
-    }
-
-}
-
-
-
-
-
-function createMemoryCard(diary){
-
-    return `
-
-    <div class="memoryCard">
-
-        ${diary.image ?
-
-        `<img
-            src="${diary.image}"
-            class="memoryImage"
-        >`
-
-        :
-
-        ""
-        }
-
-        <h3>
-            ${diary.title || "Untitled"}
-        </h3>
-
-        <p>
-            📅 ${diary.date}
-        </p>
-
-        <p>
-            ${diary.mood}
-        </p>
-
-        <p>
-            ${diary.content.substring(0,120)}...
-        </p>
-
-        <button onclick="openDiary(${diary.id})">
-
-            Open Diary
-
-        </button>
-
-    </div>
-
-    `;
-
-}
-
-
-
-
-
-function loadTimeline(){
-
-    let currentUser =
-
-    localStorage.getItem(
-        "currentUser"
-    );
-
-
-
-    let allContainer =
-
-    document.getElementById(
-        "timelineContainer"
-    );
-
-
-
-    allContainer.innerHTML = "";
-
-
-
-    let userDiaries = diaries.filter(
-
-        diary => diary.username === currentUser
-
-    );
-
-
-
-    userDiaries.reverse();
-
-
-
-    userDiaries.forEach(diary => {
-
-        allContainer.innerHTML +=
-
-        createMemoryCard(diary);
-
-    });
-
-}
-
-
-
-
-
-function loadFavorites(){
-
-    let currentUser =
-
-    localStorage.getItem(
-        "currentUser"
-    );
-
-
-
-    let favoriteContainer =
-
-    document.getElementById(
-        "favoriteContainer"
-    );
-
-
-
-    favoriteContainer.innerHTML = "";
-
-
-
-    let favoriteDiaries = diaries.filter(
-
-        diary =>
-
-        diary.username === currentUser &&
-
-        diary.favorite === true
-
-    );
-
-
-
-    favoriteDiaries.reverse();
-
-
-
-    favoriteDiaries.forEach(diary => {
-
-        favoriteContainer.innerHTML +=
-
-        createMemoryCard(diary);
-
-    });
-
-}
-
-
-
-
-
-function loadLocked(){
-
-    let currentUser =
-
-    localStorage.getItem(
-        "currentUser"
-    );
-
-
-
-    let lockedContainer =
-
-    document.getElementById(
-        "lockedContainer"
-    );
-
-
-
-    lockedContainer.innerHTML = "";
-
-
-
-    let lockedDiaries = diaries.filter(
-
-        diary =>
-
-        diary.username === currentUser &&
-
-        diary.locked === true
-
-    );
-
-
-
-    lockedDiaries.reverse();
-
-
-
-    lockedDiaries.forEach(diary => {
-
-        lockedContainer.innerHTML +=
-
-        createMemoryCard(diary);
-
-    });
-
-}
-
-
-
-
-
-function searchTimeline(){
-
-    let searchText =
-
-    document.getElementById(
-        "searchInput"
-    ).value.toLowerCase();
-
-
-
-    let cards =
-
-    document.querySelectorAll(
-        ".memoryCard"
-    );
-
-
-
-    cards.forEach(card => {
-
-        if(
-
-            card.innerText
-            .toLowerCase()
-            .includes(searchText)
-
-        ){
-
-            card.style.display = "block";
-
-        }
-
-        else{
-
-            card.style.display = "none";
-
-        }
-
-    });
-
-}
-
-
-
-
-
-function searchByDate(){
-
-    let selectedDate =
-
-    document.getElementById(
-        "searchDate"
-    ).value;
-
-
-
-    let cards =
-
-    document.querySelectorAll(
-        ".memoryCard"
-    );
-
-
-
-    cards.forEach(card => {
-
-        if(
-
-            card.innerText.includes(selectedDate)
-
-        ){
-
-            card.style.display = "block";
-
-        }
-
-        else{
-
-            card.style.display = "none";
-
-        }
-
-    });
-
-}
-
-
-
-
-
-function openDiary(id){
-
-    localStorage.setItem(
-
-        "openedDiary",
-
-        id
-
-    );
-
-
-
-    window.location.href =
-
-    "view.html";
-
-}
-
-
-
-
-
-function loadViewDiary(){
-
-    let diaryId =
-
-    Number(
-
-        localStorage.getItem(
-            "openedDiary"
-        )
-
-    );
-
-
-
-    let diary = diaries.find(
-
-        d => d.id === diaryId
-
-    );
-
-
-
-    let container =
-
-    document.getElementById(
-        "viewContainer"
-    );
-
-
-
-    if(!diary){
-
-        container.innerHTML =
-
-        "<h2>Diary not found</h2>";
-
-        return;
-
-    }
-
-
-
-    container.innerHTML = `
-
-        ${diary.image ?
-
-        `<img
-            src="${diary.image}"
-            class="viewImage"
-        >`
-
-        :
-
-        ""
-        }
-
-        <h1>
-            ${diary.title}
-        </h1>
-
-        <p>
-            📅 ${diary.date}
-        </p>
-
-        <p>
-            ${diary.mood}
-        </p>
-
-        <hr>
-
-        <p>
-            ${diary.content}
-        </p>
-
-    `;
-
-}
-
-
-
-
-
-function editOpenedDiary(){
-
-    let diaryId =
-
-    Number(
-
-        localStorage.getItem(
-            "openedDiary"
-        )
-
-    );
-
-
-
-    let diary = diaries.find(
-
-        d => d.id === diaryId
-
-    );
-
-
-
-    if(!diary){
-
-        return;
-
-    }
-
-
-
-    localStorage.setItem(
-
-        "editDate",
-
-        diary.date
-
-    );
-
-
-
-    window.location.href =
-
-    "editor.html";
-
-}
-
-
-
-
-
-function deleteDiary(){
-
-    let confirmDelete = confirm(
-
-        "Delete this diary permanently?"
-
-    );
-
-
-
-    if(!confirmDelete){
-
-        return;
-
-    }
-
-
-
-    let diaryId =
-
-    Number(
-
-        localStorage.getItem(
-            "openedDiary"
-        )
-
-    );
-
-
-
-    diaries = diaries.filter(
-
-        diary => diary.id !== diaryId
-
-    );
-
-
-
-    localStorage.setItem(
-
-        "diaries",
-
-        JSON.stringify(diaries)
-
-    );
-
-
-
-    alert("Diary deleted");
-
-
-
-    window.location.href =
-
-    "timeline.html";
-
-}
-
-
-
-
-
-function loadDraft(){
-
-    let draft =
-
-    JSON.parse(
-
-        localStorage.getItem(
-            "draftDiary"
-        )
-
-    );
-
-
-
-    if(draft){
-
-        document.getElementById(
-            "diaryTitle"
-        ).value = draft.title;
-
-
-
-        document.getElementById(
-            "diaryContent"
-        ).value = draft.content;
-
-    }
-
-}
-
-
-
-
-
-setInterval(() => {
-
-    let titleBox =
-
-    document.getElementById(
-        "diaryTitle"
-    );
-
-
-
-    let contentBox =
-
-    document.getElementById(
-        "diaryContent"
-    );
-
-
-
-    if(titleBox && contentBox){
+        memories.push(memory);
 
         localStorage.setItem(
 
-            "draftDiary",
+            "memories",
 
-            JSON.stringify({
-
-                title:titleBox.value,
-
-                content:contentBox.value
-
-            })
-
+            JSON.stringify(memories)
         );
 
+        showToast(
+            "Memory saved successfully ✨"
+        );
+
+        setTimeout(()=>{
+
+            window.location.href =
+            "memories.html";
+
+        },1000);
+    }
+}
+
+
+/* =========================================
+   LOAD MEMORIES
+========================================= */
+
+function loadMemories(){
+
+    let container =
+    document.getElementById("memoryContainer");
+
+    if(!container) return;
+
+    let memories =
+    JSON.parse(
+        localStorage.getItem("memories")
+    ) || [];
+
+    container.innerHTML = "";
+
+    if(memories.length === 0){
+
+        container.innerHTML =
+
+        `
+        <div class="memoryCard">
+            <h2>No memories yet ✨</h2>
+        </div>
+        `;
+
+        return;
     }
 
-}, 2000);
+    memories
+    .slice()
+    .reverse()
+    .forEach((memory,index)=>{
+
+        let card =
+        document.createElement("div");
+
+        card.className =
+        "memoryCard";
+
+        let imageHTML = "";
+
+        if(memory.image){
+
+            imageHTML =
+
+            `
+            <img
+                src="${memory.image}"
+                class="memoryImage"
+            >
+            `;
+        }
+
+        let favoriteHTML = "";
+
+        if(memory.favorite){
+
+            favoriteHTML =
+
+            `
+            <span class="favoriteTag">
+                ⭐ Favorite
+            </span>
+            `;
+        }
+
+        let lockedHTML = "";
+
+        if(memory.locked){
+
+            lockedHTML =
+
+            `
+            <span class="favoriteTag">
+                🔒 Locked
+            </span>
+            `;
+        }
+
+        card.innerHTML =
+
+        `
+        ${imageHTML}
+
+        <h2>${memory.title}</h2>
+
+        <p>
+            📅 ${memory.date}
+        </p>
+
+        <p>
+            😊 Mood: ${memory.mood}
+        </p>
+
+        <p>
+            ${memory.content}
+        </p>
+
+        ${favoriteHTML}
+
+        ${lockedHTML}
+
+        <button
+            onclick="deleteMemory(${memories.length - 1 - index})"
+        >
+            Delete Memory
+        </button>
+        `;
+
+        container.appendChild(card);
+    });
+}
+
+
+/* =========================================
+   DELETE MEMORY
+========================================= */
+
+function deleteMemory(index){
+
+    let memories =
+    JSON.parse(
+        localStorage.getItem("memories")
+    ) || [];
+
+    let confirmDelete =
+    confirm(
+        "Delete this memory?"
+    );
+
+    if(confirmDelete){
+
+        memories.splice(index,1);
+
+        localStorage.setItem(
+
+            "memories",
+
+            JSON.stringify(memories)
+        );
+
+        loadMemories();
+
+        showToast(
+            "Memory deleted"
+        );
+    }
+}
+
+
+/* =========================================
+   FAVORITES
+========================================= */
+
+function loadFavorites(){
+
+    let container =
+    document.getElementById("memoryContainer");
+
+    if(!container) return;
+
+    let memories =
+    JSON.parse(
+        localStorage.getItem("memories")
+    ) || [];
+
+    let favorites =
+    memories.filter(memory =>
+
+        memory.favorite
+    );
+
+    container.innerHTML = "";
+
+    if(favorites.length === 0){
+
+        container.innerHTML =
+
+        `
+        <div class="memoryCard">
+            <h2>No favorite memories ⭐</h2>
+        </div>
+        `;
+
+        return;
+    }
+
+    favorites
+    .slice()
+    .reverse()
+    .forEach(memory=>{
+
+        createMemoryCard(
+            memory,
+            container
+        );
+    });
+}
+
+
+/* =========================================
+   LOCKED MEMORIES
+========================================= */
+
+function loadLocked(){
+
+    let container =
+    document.getElementById("memoryContainer");
+
+    if(!container) return;
+
+    let memories =
+    JSON.parse(
+        localStorage.getItem("memories")
+    ) || [];
+
+    let lockedMemories =
+    memories.filter(memory =>
+
+        memory.locked
+    );
+
+    container.innerHTML = "";
+
+    if(lockedMemories.length === 0){
+
+        container.innerHTML =
+
+        `
+        <div class="memoryCard">
+            <h2>No locked memories 🔒</h2>
+        </div>
+        `;
+
+        return;
+    }
+
+    lockedMemories
+    .slice()
+    .reverse()
+    .forEach(memory=>{
+
+        createMemoryCard(
+            memory,
+            container
+        );
+    });
+}
+
+
+/* =========================================
+   MEMORY CARD CREATOR
+========================================= */
+
+function createMemoryCard(memory,container){
+
+    let card =
+    document.createElement("div");
+
+    card.className =
+    "memoryCard";
+
+    let imageHTML = "";
+
+    if(memory.image){
+
+        imageHTML =
+
+        `
+        <img
+            src="${memory.image}"
+            class="memoryImage"
+        >
+        `;
+    }
+
+    let favoriteHTML = "";
+
+    if(memory.favorite){
+
+        favoriteHTML =
+
+        `
+        <span class="favoriteTag">
+            ⭐ Favorite
+        </span>
+        `;
+    }
+
+    let lockedHTML = "";
+
+    if(memory.locked){
+
+        lockedHTML =
+
+        `
+        <span class="favoriteTag">
+            🔒 Locked
+        </span>
+        `;
+    }
+
+    card.innerHTML =
+
+    `
+    ${imageHTML}
+
+    <h2>${memory.title}</h2>
+
+    <p>
+        📅 ${memory.date}
+    </p>
+
+    <p>
+        😊 Mood: ${memory.mood}
+    </p>
+
+    <p>
+        ${memory.content}
+    </p>
+
+    ${favoriteHTML}
+
+    ${lockedHTML}
+    `;
+
+    container.appendChild(card);
+}
+
+
+/* =========================================
+   HOME DASHBOARD
+========================================= */
+
+function loadHome(){
+
+    let username =
+    localStorage.getItem("currentUser");
+
+    let welcomeText =
+    document.getElementById("welcomeText");
+
+    if(welcomeText){
+
+        welcomeText.innerHTML =
+
+        `✨ Welcome, ${username}`;
+    }
+
+    let memories =
+    JSON.parse(
+        localStorage.getItem("memories")
+    ) || [];
+
+    let favorites =
+    memories.filter(memory =>
+
+        memory.favorite
+    );
+
+    let locked =
+    memories.filter(memory =>
+
+        memory.locked
+    );
+
+    let totalMemories =
+    document.getElementById("totalMemories");
+
+    let favoriteCount =
+    document.getElementById("favoriteCount");
+
+    let lockedCount =
+    document.getElementById("lockedCount");
+
+    if(totalMemories){
+
+        totalMemories.innerHTML =
+        memories.length;
+    }
+
+    if(favoriteCount){
+
+        favoriteCount.innerHTML =
+        favorites.length;
+    }
+
+    if(lockedCount){
+
+        lockedCount.innerHTML =
+        locked.length;
+    }
+}
+
+
+/* =========================================
+   SEARCH MEMORIES
+========================================= */
+
+function searchMemories(){
+
+    let input =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase();
+
+    let cards =
+    document.querySelectorAll(".memoryCard");
+
+    cards.forEach(card=>{
+
+        let text =
+        card.innerText.toLowerCase();
+
+        if(text.includes(input)){
+
+            card.style.display =
+            "block";
+
+        }else{
+
+            card.style.display =
+            "none";
+        }
+    });
+}
+
+
+/* =========================================
+   TOAST
+========================================= */
+
+function showToast(message){
+
+    let toast =
+    document.createElement("div");
+
+    toast.className =
+    "toast";
+
+    toast.innerText =
+    message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(()=>{
+
+        toast.remove();
+
+    },3000);
+}

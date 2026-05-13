@@ -11,37 +11,70 @@
 
 <body onload="loadFavorites()">
 
-<div class="overlay">
+    <!-- TOP NAVBAR -->
 
-<div class="container">
+    <div class="navbar">
 
-    <h1>
-        🌟 Favorite Memories
-    </h1>
+        <div class="nav-left">
 
+            <button
+                class="backBtn"
+                onclick="location.href='home.html'">
 
+                ← Back
 
+            </button>
 
+            <div class="logo">
+                ⭐ Favorite Memories
+            </div>
 
-    <div id="favoriteContainer">
+        </div>
 
     </div>
 
+    <div class="overlay">
 
+        <div class="container">
 
+            <h1>
+                ⭐ Golden Memories
+            </h1>
 
+            <p class="subtitle">
+                Your most precious moments collected in one place
+            </p>
 
-    <button onclick="location.href='home.html'">
+            <!-- SEARCH -->
 
-        ⬅ Back Home
+            <input
+                type="text"
+                id="favoriteSearch"
+                class="searchBox"
+                placeholder="🔍 Search favorite memories..."
+                onkeyup="searchFavorites()"
+            >
 
-    </button>
+            <!-- DATE FILTER -->
 
-</div>
+            <input
+                type="date"
+                id="favoriteDateSearch"
+                class="searchBox"
+                onchange="searchFavoriteDate()"
+            >
 
-</div>
+            <!-- FAVORITES LIST -->
 
-<script src="script.js"></script>
+            <div id="favoritesContainer">
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="script.js"></script>
 
 </body>
 

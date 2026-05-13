@@ -11,24 +11,64 @@
 
 <body onload="loadMemories()">
 
+    <!-- TOP NAVBAR -->
+
+    <div class="navbar">
+
+        <div class="nav-left">
+
+            <button
+                class="backBtn"
+                onclick="location.href='home.html'">
+
+                ← Back
+
+            </button>
+
+            <div class="logo">
+                📖 Memory Diary
+            </div>
+
+        </div>
+
+    </div>
+
     <div class="overlay">
 
         <div class="container">
 
-            <h1>📖 Memories</h1>
+            <h1>
+                📚 All Memories
+            </h1>
+
+            <p class="subtitle">
+                Search memories by date or keyword
+            </p>
+
+            <!-- SEARCH -->
 
             <input
                 type="text"
                 id="searchInput"
-                placeholder="Search memories..."
+                class="searchBox"
+                placeholder="🔍 Search memories..."
                 onkeyup="searchMemories()"
             >
 
-            <div id="memoryList"></div>
+            <!-- DATE SEARCH -->
 
-            <button onclick="location.href='home.html'">
-                Home
-            </button>
+            <input
+                type="date"
+                id="dateSearch"
+                class="searchBox"
+                onchange="searchByDate()"
+            >
+
+            <!-- MEMORY LIST -->
+
+            <div id="memoryList">
+
+            </div>
 
         </div>
 

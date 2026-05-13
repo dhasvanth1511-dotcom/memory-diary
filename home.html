@@ -3,112 +3,137 @@
 
 <head>
 
-    <title>Home</title>
+    <title>Memory Diary Dashboard</title>
 
     <link rel="stylesheet" href="style.css">
-
-    <meta charset="UTF-8">
-
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 </head>
 
 <body onload="loadHome()">
 
-<div class="overlay">
+    <!-- TOP NAVBAR -->
 
-<div class="container">
+    <div class="navbar">
 
-    <h1 id="welcomeText">
+        <div class="nav-left">
 
-    </h1>
+            <button
+                class="backBtn"
+                onclick="logout()">
 
+                ← Logout
 
+            </button>
 
+            <div class="logo">
+                📖 Memory Diary
+            </div>
 
-
-    <div class="streakBox">
-
-        <h2 id="streakText">
-
-        </h2>
+        </div>
 
     </div>
 
+    <div class="overlay">
 
+        <div class="container home-container">
 
+            <h1 id="welcomeText">
+                ✨ Welcome
+            </h1>
 
+            <p class="subtitle">
+                Capture your emotions, moments and life memories forever
+            </p>
 
-    <div class="dailyReminder">
+            <!-- STATS -->
 
-        ✨ Write today’s memory before the day ends.
+            <div class="statsGrid">
+
+                <div class="statCard">
+
+                    <h2 id="totalMemories">
+                        0
+                    </h2>
+
+                    <p>
+                        Total Memories
+                    </p>
+
+                </div>
+
+                <div class="statCard">
+
+                    <h2 id="favoriteCount">
+                        0
+                    </h2>
+
+                    <p>
+                        Favorite Memories
+                    </p>
+
+                </div>
+
+                <div class="statCard">
+
+                    <h2 id="lockedCount">
+                        0
+                    </h2>
+
+                    <p>
+                        Locked Memories
+                    </p>
+
+                </div>
+
+            </div>
+
+            <!-- MAIN BUTTONS -->
+
+            <div class="homeButtons">
+
+                <button
+                    class="mainButton"
+                    onclick="location.href='write.html'">
+
+                    ✍️ Write Memory
+                </button>
+
+                <button
+                    class="mainButton"
+                    onclick="location.href='memories.html'">
+
+                    📚 View Memories
+                </button>
+
+                <button
+                    class="mainButton"
+                    onclick="location.href='favorites.html'">
+
+                    ⭐ Favorite Memories
+                </button>
+
+                <button
+                    class="mainButton"
+                    onclick="location.href='locked.html'">
+
+                    🔒 Locked Memories
+                </button>
+
+            </div>
+
+            <!-- QUOTE -->
+
+            <div class="quoteBox">
+
+                “Every memory deserves to live forever.”
+
+            </div>
+
+        </div>
+
     </div>
 
-
-
-
-
-    <button onclick="location.href='editor.html'">
-
-        ✍ Write Diary
-
-    </button>
-
-
-
-
-
-    <button onclick="location.href='timeline.html'">
-
-        📚 All Memories
-
-    </button>
-
-
-
-
-
-    <button onclick="location.href='favorites.html'">
-
-        🌟 Favorite Memories
-
-    </button>
-
-
-
-
-
-    <button onclick="location.href='locked.html'">
-
-        🔒 Locked Memories
-
-    </button>
-
-
-
-
-
-    <button onclick="location.href='privacy.html'">
-
-        🔐 Privacy Policy
-
-    </button>
-
-
-
-
-
-    <button onclick="logout()">
-
-        🚪 Logout
-
-    </button>
-
-</div>
-
-</div>
-
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
 </body>
 

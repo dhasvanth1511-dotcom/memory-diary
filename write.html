@@ -1,7 +1,12 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
 
     <title>Write Memory</title>
 
@@ -11,70 +16,174 @@
 
 <body>
 
+    <!-- NAVBAR -->
+
+    <div class="navbar">
+
+        <div class="nav-left">
+
+            <button
+                class="backBtn"
+                onclick="window.location.href='home.html'">
+
+                ← Back
+
+            </button>
+
+            <div class="logo">
+                📖 Memory Diary
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAIN -->
+
     <div class="overlay">
 
         <div class="container">
 
-            <h1>✍ Write Memory</h1>
+            <h1>
+                ✍️ Write Today's Memory
+            </h1>
+
+            <p class="subtitle">
+
+                Capture today's emotions,
+                moments and experiences forever.
+
+            </p>
+
+
+            <!-- TITLE -->
 
             <input
                 type="text"
-                id="memoryTitle"
+                id="title"
                 placeholder="Memory Title"
             >
 
-            <textarea
-                id="memoryText"
-                placeholder="Write your memory..."
-            ></textarea>
 
-            <select id="memoryMood">
+            <!-- MOOD -->
 
-                <option>Happy</option>
+            <select id="mood">
 
-                <option>Sad</option>
+                <option value="Happy">
+                    😊 Happy
+                </option>
 
-                <option>Angry</option>
+                <option value="Excited">
+                    🤩 Excited
+                </option>
 
-                <option>Calm</option>
+                <option value="Sad">
+                    😔 Sad
+                </option>
 
-                <option>Excited</option>
+                <option value="Angry">
+                    😡 Angry
+                </option>
+
+                <option value="Motivated">
+                    💪 Motivated
+                </option>
+
+                <option value="Calm">
+                    😌 Calm
+                </option>
 
             </select>
 
+
+            <!-- CONTENT -->
+
+            <textarea
+                id="content"
+                placeholder="Write your memory here..."
+            ></textarea>
+
+
+            <!-- IMAGE -->
+
+            <input
+                type="file"
+                id="image"
+                accept="image/*"
+            >
+
+
+            <!-- FAVORITE -->
+
             <label>
 
                 <input
                     type="checkbox"
-                    id="favoriteCheck"
+                    id="favorite"
                 >
 
-                ⭐ Favorite Memory
+                ⭐ Add to Favorite Memories
 
             </label>
+
+            <br><br>
+
+
+            <!-- LOCK -->
 
             <label>
 
                 <input
                     type="checkbox"
-                    id="lockCheck"
+                    id="locked"
                 >
 
-                🔒 Lock Memory
+                🔒 Lock this Memory
 
             </label>
+
+
+            <!-- AUTO DATE DISPLAY -->
+
+            <div class="quoteBox"
+                 id="todayDateBox">
+
+            </div>
+
+
+            <!-- SAVE BUTTON -->
 
             <button onclick="saveMemory()">
-                Save Memory
-            </button>
 
-            <button onclick="location.href='home.html'">
-                Home
+                💾 Save Memory
+
             </button>
 
         </div>
 
     </div>
+
+
+    <script>
+
+        // SHOW TODAY DATE
+
+        let today =
+        new Date()
+        .toISOString()
+        .split("T")[0];
+
+        document.getElementById(
+            "todayDateBox"
+        ).innerHTML =
+
+        `
+        📅 Today's Date:
+        <b>${today}</b>
+        `;
+
+    </script>
 
     <script src="script.js"></script>
 
