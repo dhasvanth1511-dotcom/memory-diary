@@ -9,50 +9,73 @@
 
 <body>
 
-    <!-- Back Button -->
-    <button
-        class="backBtn"
-        onclick="window.location.href='index.html'">
+    <div class="overlay">
 
-        ← Back
-    </button>
+        <div class="login-box">
 
-    <div class="container signup-container">
+            <h1>
+                ✨ Create Account
+            </h1>
 
-        <h1>✨ Join Memory Diary</h1>
+            <p class="subtitle">
 
-        <p class="subtitle">
-            Create your private world of memories
-        </p>
+                Start your memory journey today.
 
-        <input
-            type="text"
-            id="signupUsername"
-            placeholder="Choose Username">
+            </p>
 
-        <input
-            type="password"
-            id="signupPassword"
-            placeholder="Choose Password">
 
-        <button onclick="createUser()">
-            🚀 Create Account
-        </button>
+            <!-- USERNAME -->
 
-        <div class="login-link">
+            <input
+                type="text"
+                id="signupUsername"
+                placeholder="Create Username"
+            >
 
-            Already have an account?
 
-            <a href="index.html">
-                Login Here
-            </a>
+            <!-- PASSWORD -->
+
+            <input
+                type="password"
+                id="signupPassword"
+                placeholder="Create Password"
+            >
+
+
+            <!-- CONFIRM PASSWORD -->
+
+            <input
+                type="password"
+                id="confirmPassword"
+                placeholder="Confirm Password"
+            >
+
+
+            <!-- BUTTON -->
+
+            <button onclick="signup()">
+
+                Create Account
+
+            </button>
+
+
+            <br><br>
+
+            <button
+                class="backBtn"
+                onclick="window.location.href='index.html'"
+            >
+
+                ← Back to Login
+
+            </button>
 
         </div>
 
     </div>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
-
 </html>

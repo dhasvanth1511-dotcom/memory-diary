@@ -51,8 +51,7 @@
 
             <p class="subtitle">
 
-                Capture today's emotions,
-                moments and experiences forever.
+                Capture today's emotions and memories forever.
 
             </p>
 
@@ -144,7 +143,7 @@
             </label>
 
 
-            <!-- AUTO DATE DISPLAY -->
+            <!-- DATE DISPLAY -->
 
             <div class="quoteBox"
                  id="todayDateBox">
@@ -152,7 +151,7 @@
             </div>
 
 
-            <!-- SAVE BUTTON -->
+            <!-- SAVE -->
 
             <button onclick="saveMemory()">
 
@@ -165,27 +164,150 @@
     </div>
 
 
-    <script>
+<script>
 
-        // SHOW TODAY DATE
+/* =========================================
+   TODAY DATE
+========================================= */
 
-        let today =
-        new Date()
-        .toISOString()
-        .split("T")[0];
+let today =
+new Date()
+.toISOString()
+.split("T")[0];
 
-        document.getElementById(
-            "todayDateBox"
-        ).innerHTML =
 
-        `
-        📅 Today's Date:
-        <b>${today}</b>
-        `;
+/* =========================================
+   SHOW DATE
+========================================= */
 
-    </script>
+document.getElementById(
+    "todayDateBox"
+).innerHTML =
 
-    <script src="script.js"></script>
+`
+📅 Today's Date:
+<b>${today}</b>
+`;
+
+
+/* =========================================
+   LOAD SAVED DRAFT
+========================================= */
+
+let draft =
+JSON.parse(
+    localStorage.getItem("draftMemory")
+);
+
+
+/* =========================================
+   RESTORE SAME DAY DRAFT
+========================================= */
+
+if(
+    draft &&
+    draft.date === today
+){
+
+    document.getElementById("title").value =
+    draft.title || "";
+
+    document.getElementById("content").value =
+    draft.content || "";
+
+    document.getElementById("mood").value =
+    draft.mood || "Happy";
+}
+
+
+/* =========================================
+   AUTO SAVE OLD DRAFT AS MEMORY
+========================================= */
+
+if(
+    draft &&
+    draft.date !== today &&
+    draft.content.trim() !== ""
+){
+
+    let memories =
+    JSON.parse(
+        localStorage.getItem("memories")
+    ) || [];
+
+    let alreadySaved =
+    memories.find(memory =>
+
+        memory.date === draft.date
+    );
+
+    if(!alreadySaved){
+
+        memories.push({
+
+            title:
+            draft.title || "Untitled Memory",
+
+            content:
+            draft.content,
+
+            mood:
+            draft.mood || "Happy",
+
+            date:
+            draft.date,
+
+            favorite:false,
+
+            locked:false,
+
+            image:""
+        });
+
+        localStorage.setItem(
+            "memories",
+            JSON.stringify(memories)
+        );
+    }
+
+    localStorage.removeItem(
+        "draftMemory"
+    );
+}
+
+
+/* =========================================
+   AUTO SAVE DRAFT
+========================================= */
+
+setInterval(()=>{
+
+    let liveDraft = {
+
+        title:
+        document.getElementById("title").value,
+
+        content:
+        document.getElementById("content").value,
+
+        mood:
+        document.getElementById("mood").value,
+
+        date:today
+    };
+
+    localStorage.setItem(
+
+        "draftMemory",
+
+        JSON.stringify(liveDraft)
+    );
+
+},1000);
+
+</script>
+
+<script src="script.js"></script>
 
 </body>
 

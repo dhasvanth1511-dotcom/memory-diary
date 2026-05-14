@@ -1,14 +1,11 @@
 /* =========================================
-   MEMORY DIARY - COMPLETE SCRIPT
-========================================= */
-
-
-/* =========================================
    CURRENT USER
 ========================================= */
 
 let currentUser =
 localStorage.getItem("currentUser");
+let memoryKey =
+`memories_${currentUser}`;
 
 
 /* =========================================
@@ -33,7 +30,6 @@ function login(){
 
         user.username === username &&
         user.password === password
-
     );
 
     if(validUser){
@@ -185,38 +181,29 @@ function saveMemory(){
     document.getElementById("locked").checked;
 
 
-    /* AUTO TODAY DATE */
-
     let today =
     new Date()
     .toISOString()
     .split("T")[0];
 
 
-    /* VALIDATION */
-
     if(
-        title.trim() === "" ||
         content.trim() === ""
     ){
 
         showToast(
-            "Please fill all fields"
+            "Please write your memory"
         );
 
         return;
     }
 
 
-    /* GET MEMORIES */
-
     let memories =
     JSON.parse(
-        localStorage.getItem("memories")
+        localStorage.getItem(memoryKey)
     ) || [];
 
-
-    /* ONLY ONE ENTRY PER DAY */
 
     let alreadyExists =
     memories.find(memory =>
@@ -227,7 +214,7 @@ function saveMemory(){
     if(alreadyExists){
 
         showToast(
-            "You already wrote today's diary ✨"
+            "Today's memory already exists"
         );
 
         return;
@@ -267,7 +254,10 @@ function saveMemory(){
 
         let memory = {
 
-            title:title,
+            title:
+            title.trim() === ""
+            ? "Untitled Memory"
+            : title,
 
             content:content,
 
@@ -285,11 +275,16 @@ function saveMemory(){
         memories.push(memory);
 
         localStorage.setItem(
-
-            "memories",
+            memoryKey,
 
             JSON.stringify(memories)
         );
+
+
+        localStorage.removeItem(
+            "draftMemory"
+        );
+
 
         showToast(
             "Memory saved successfully ✨"
@@ -318,10 +313,12 @@ function loadMemories(){
 
     let memories =
     JSON.parse(
-        localStorage.getItem("memories")
+        localStorage.getItem(memoryKey)
     ) || [];
 
+
     container.innerHTML = "";
+
 
     if(memories.length === 0){
 
@@ -329,246 +326,52 @@ function loadMemories(){
 
         `
         <div class="memoryCard">
-            <h2>No memories yet ✨</h2>
+
+            <h2>
+                📭 No memories yet
+            </h2>
+
+            <p>
+                Start writing your first memory ✨
+            </p>
+
         </div>
         `;
 
         return;
     }
+
 
     memories
     .slice()
     .reverse()
     .forEach((memory,index)=>{
 
-        let card =
-        document.createElement("div");
-
-        card.className =
-        "memoryCard";
-
-        let imageHTML = "";
-
-        if(memory.image){
-
-            imageHTML =
-
-            `
-            <img
-                src="${memory.image}"
-                class="memoryImage"
-            >
-            `;
-        }
-
-        let favoriteHTML = "";
-
-        if(memory.favorite){
-
-            favoriteHTML =
-
-            `
-            <span class="favoriteTag">
-                ⭐ Favorite
-            </span>
-            `;
-        }
-
-        let lockedHTML = "";
-
-        if(memory.locked){
-
-            lockedHTML =
-
-            `
-            <span class="favoriteTag">
-                🔒 Locked
-            </span>
-            `;
-        }
-
-        card.innerHTML =
-
-        `
-        ${imageHTML}
-
-        <h2>${memory.title}</h2>
-
-        <p>
-            📅 ${memory.date}
-        </p>
-
-        <p>
-            😊 Mood: ${memory.mood}
-        </p>
-
-        <p>
-            ${memory.content}
-        </p>
-
-        ${favoriteHTML}
-
-        ${lockedHTML}
-
-        <button
-            onclick="deleteMemory(${memories.length - 1 - index})"
-        >
-            Delete Memory
-        </button>
-        `;
-
-        container.appendChild(card);
-    });
-}
-
-
-/* =========================================
-   DELETE MEMORY
-========================================= */
-
-function deleteMemory(index){
-
-    let memories =
-    JSON.parse(
-        localStorage.getItem("memories")
-    ) || [];
-
-    let confirmDelete =
-    confirm(
-        "Delete this memory?"
-    );
-
-    if(confirmDelete){
-
-        memories.splice(index,1);
-
-        localStorage.setItem(
-
-            "memories",
-
-            JSON.stringify(memories)
-        );
-
-        loadMemories();
-
-        showToast(
-            "Memory deleted"
-        );
-    }
-}
-
-
-/* =========================================
-   FAVORITES
-========================================= */
-
-function loadFavorites(){
-
-    let container =
-    document.getElementById("memoryContainer");
-
-    if(!container) return;
-
-    let memories =
-    JSON.parse(
-        localStorage.getItem("memories")
-    ) || [];
-
-    let favorites =
-    memories.filter(memory =>
-
-        memory.favorite
-    );
-
-    container.innerHTML = "";
-
-    if(favorites.length === 0){
-
-        container.innerHTML =
-
-        `
-        <div class="memoryCard">
-            <h2>No favorite memories ⭐</h2>
-        </div>
-        `;
-
-        return;
-    }
-
-    favorites
-    .slice()
-    .reverse()
-    .forEach(memory=>{
-
         createMemoryCard(
             memory,
-            container
+            container,
+            memories.length - 1 - index
         );
     });
 }
 
 
 /* =========================================
-   LOCKED MEMORIES
+   CREATE MEMORY CARD
 ========================================= */
 
-function loadLocked(){
-
-    let container =
-    document.getElementById("memoryContainer");
-
-    if(!container) return;
-
-    let memories =
-    JSON.parse(
-        localStorage.getItem("memories")
-    ) || [];
-
-    let lockedMemories =
-    memories.filter(memory =>
-
-        memory.locked
-    );
-
-    container.innerHTML = "";
-
-    if(lockedMemories.length === 0){
-
-        container.innerHTML =
-
-        `
-        <div class="memoryCard">
-            <h2>No locked memories 🔒</h2>
-        </div>
-        `;
-
-        return;
-    }
-
-    lockedMemories
-    .slice()
-    .reverse()
-    .forEach(memory=>{
-
-        createMemoryCard(
-            memory,
-            container
-        );
-    });
-}
-
-
-/* =========================================
-   MEMORY CARD CREATOR
-========================================= */
-
-function createMemoryCard(memory,container){
+function createMemoryCard(
+    memory,
+    container,
+    index
+){
 
     let card =
     document.createElement("div");
 
     card.className =
     "memoryCard";
+
 
     let imageHTML = "";
 
@@ -584,6 +387,7 @@ function createMemoryCard(memory,container){
         `;
     }
 
+
     let favoriteHTML = "";
 
     if(memory.favorite){
@@ -596,6 +400,7 @@ function createMemoryCard(memory,container){
         </span>
         `;
     }
+
 
     let lockedHTML = "";
 
@@ -610,6 +415,7 @@ function createMemoryCard(memory,container){
         `;
     }
 
+
     card.innerHTML =
 
     `
@@ -622,7 +428,8 @@ function createMemoryCard(memory,container){
     </p>
 
     <p>
-        😊 Mood: ${memory.mood}
+        😊 Mood:
+        ${memory.mood}
     </p>
 
     <p>
@@ -632,9 +439,136 @@ function createMemoryCard(memory,container){
     ${favoriteHTML}
 
     ${lockedHTML}
+
+<div class="memoryButtons">
+
+    <button
+        onclick="editMemory(${index})"
+    >
+        ✏ Edit
+    </button>
+
+
+    <button
+        onclick="deleteMemory(${index})"
+    >
+        🗑 Delete
+    </button>
+
+</div>
     `;
 
     container.appendChild(card);
+}
+
+
+/* =========================================
+   DELETE MEMORY
+========================================= */
+
+function deleteMemory(index){
+
+    let confirmDelete =
+    confirm(
+        "Delete this memory?"
+    );
+
+    if(!confirmDelete) return;
+
+
+    let memories =
+    JSON.parse(
+        localStorage.getItem(memoryKey)
+    ) || [];
+
+
+    memories.splice(index,1);
+
+
+    localStorage.setItem(
+        memoryKey,  
+
+        JSON.stringify(memories)
+    );
+
+
+    loadMemories();
+
+    showToast(
+        "Memory deleted"
+    );
+}
+
+
+/* =========================================
+   SEARCH MEMORIES
+========================================= */
+
+function searchMemories(){
+
+    let input =
+    document.getElementById("searchInput")
+    .value
+    .toLowerCase()
+    .trim();
+
+    let cards =
+    document.querySelectorAll(".memoryCard");
+
+    let found = false;
+
+
+    cards.forEach(card=>{
+
+        let text =
+        card.innerText.toLowerCase();
+
+        if(text.includes(input)){
+
+            card.style.display =
+            "block";
+
+            found = true;
+
+        }else{
+
+            card.style.display =
+            "none";
+        }
+    });
+
+
+    let noResults =
+    document.getElementById("noResults");
+
+
+    if(!found){
+
+        noResults.innerHTML =
+
+        `
+        <div class="memoryCard">
+
+            <h2>
+                📭 No diary entries found
+            </h2>
+
+            <p>
+                No memories were written
+                for this keyword or date.
+            </p>
+
+        </div>
+        `;
+
+        noResults.style.display =
+        "block";
+
+    }else{
+
+        noResults.style.display =
+        "none";
+    }
 }
 
 
@@ -657,10 +591,12 @@ function loadHome(){
         `✨ Welcome, ${username}`;
     }
 
+
     let memories =
     JSON.parse(
-        localStorage.getItem("memories")
+        localStorage.getItem(memoryKey)
     ) || [];
+
 
     let favorites =
     memories.filter(memory =>
@@ -668,11 +604,13 @@ function loadHome(){
         memory.favorite
     );
 
+
     let locked =
     memories.filter(memory =>
 
         memory.locked
     );
+
 
     let totalMemories =
     document.getElementById("totalMemories");
@@ -682,6 +620,7 @@ function loadHome(){
 
     let lockedCount =
     document.getElementById("lockedCount");
+
 
     if(totalMemories){
 
@@ -700,39 +639,6 @@ function loadHome(){
         lockedCount.innerHTML =
         locked.length;
     }
-}
-
-
-/* =========================================
-   SEARCH MEMORIES
-========================================= */
-
-function searchMemories(){
-
-    let input =
-    document.getElementById("searchInput")
-    .value
-    .toLowerCase();
-
-    let cards =
-    document.querySelectorAll(".memoryCard");
-
-    cards.forEach(card=>{
-
-        let text =
-        card.innerText.toLowerCase();
-
-        if(text.includes(input)){
-
-            card.style.display =
-            "block";
-
-        }else{
-
-            card.style.display =
-            "none";
-        }
-    });
 }
 
 
@@ -758,4 +664,138 @@ function showToast(message){
         toast.remove();
 
     },3000);
+}
+/* =========================================
+   SEARCH BY DATE
+========================================= */
+
+function searchByDate(){
+
+    let selectedDate =
+    document.getElementById("dateSearch")
+    .value;
+
+    let cards =
+    document.querySelectorAll(".memoryCard");
+
+    let found = false;
+
+
+    cards.forEach(card=>{
+
+        let text =
+        card.innerText;
+
+        if(text.includes(selectedDate)){
+
+            card.style.display =
+            "block";
+
+            found = true;
+
+        }else{
+
+            card.style.display =
+            "none";
+        }
+    });
+
+
+    let noResults =
+    document.getElementById("noResults");
+
+
+    if(!found){
+
+        noResults.innerHTML =
+
+        `
+        <div class="memoryCard">
+
+            <h2>
+                📅 No diary entries found
+            </h2>
+
+            <p>
+                No memories were written
+                on this date.
+            </p>
+
+        </div>
+        `;
+
+        noResults.style.display =
+        "block";
+
+    }else{
+
+        noResults.style.display =
+        "none";
+    }
+}
+/* =========================================
+   EDIT MEMORY
+========================================= */
+
+function editMemory(index){
+
+    let memories =
+    JSON.parse(
+        localStorage.getItem(memoryKey)
+    ) || [];
+
+    let memory =
+    memories[index];
+
+
+    let newTitle =
+    prompt(
+        "Edit Title",
+        memory.title
+    );
+
+    if(newTitle === null) return;
+
+
+    let newContent =
+    prompt(
+        "Edit Memory",
+        memory.content
+    );
+
+    if(newContent === null) return;
+
+
+    let newMood =
+    prompt(
+        "Edit Mood",
+        memory.mood
+    );
+
+    if(newMood === null) return;
+
+
+    memories[index].title =
+    newTitle;
+
+    memories[index].content =
+    newContent;
+
+    memories[index].mood =
+    newMood;
+
+
+    localStorage.setItem(
+
+        memoryKey,
+
+        JSON.stringify(memories)
+    );
+
+
+    loadMemories();
+
+    showToast(
+        "Memory updated ✨"
+    );
 }

@@ -1,9 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 
-    <title>Memories</title>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>View Memories</title>
 
     <link rel="stylesheet" href="style.css">
 
@@ -11,7 +16,7 @@
 
 <body onload="loadMemories()">
 
-    <!-- TOP NAVBAR -->
+    <!-- NAVBAR -->
 
     <div class="navbar">
 
@@ -19,62 +24,98 @@
 
             <button
                 class="backBtn"
-                onclick="location.href='home.html'">
+                onclick="window.location.href='home.html'">
 
                 ← Back
 
             </button>
 
             <div class="logo">
+
                 📖 Memory Diary
+
             </div>
 
         </div>
 
     </div>
+
+
+    <!-- MAIN -->
 
     <div class="overlay">
 
         <div class="container">
 
             <h1>
-                📚 All Memories
+                📚 Your Memories
             </h1>
 
             <p class="subtitle">
-                Search memories by date or keyword
+
+                Search your memories using
+                dates, moods or keywords.
+
             </p>
 
-            <!-- SEARCH -->
 
-            <input
-                type="text"
-                id="searchInput"
-                class="searchBox"
-                placeholder="🔍 Search memories..."
-                onkeyup="searchMemories()"
-            >
+            <!-- SEARCH SECTION -->
 
-            <!-- DATE SEARCH -->
+            <div class="searchSection">
 
-            <input
-                type="date"
-                id="dateSearch"
-                class="searchBox"
-                onchange="searchByDate()"
-            >
+                <!-- KEYWORD SEARCH -->
 
-            <!-- MEMORY LIST -->
+                <input
+                    type="text"
+                    id="searchInput"
+                    class="searchBox"
+                    placeholder="🔍 Search memories by keyword..."
+                    onkeyup="searchMemories()"
+                >
 
-            <div id="memoryList">
+
+                <!-- DATE SEARCH -->
+
+                <div class="dateSearchWrapper">
+
+                    <input
+                        type="date"
+                        id="dateSearch"
+                        class="searchBox dateInput"
+                        onchange="searchByDate()"
+                    >
+
+                </div>
+
+
+                <!-- CLEAR SEARCH -->
+
+                <button
+                    class="clearBtn"
+                    onclick="clearSearch()"
+                >
+
+                    🔄 Clear Search
+
+                </button>
 
             </div>
+
+
+            <!-- NO RESULTS -->
+
+            <div id="noResults"></div>
+
+
+            <!-- MEMORY CONTAINER -->
+
+            <div id="memoryContainer"></div>
 
         </div>
 
     </div>
 
-    <script src="script.js"></script>
+<script src="script.js"></script>
 
 </body>
 
