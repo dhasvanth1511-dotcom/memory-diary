@@ -271,7 +271,33 @@ function saveMemory(){
 
             image:imageData
         };
+        /* UPDATE EDITED MEMORY */
 
+let editIndex =
+localStorage.getItem(
+    "editingMemoryIndex"
+);
+
+if(editIndex !== null){
+
+    memories[editIndex] =
+    memory;
+
+    localStorage.setItem(
+        memoryKey,
+        JSON.stringify(memories)
+    );
+
+    localStorage.removeItem(
+        "editingMemoryIndex"
+    );
+
+    showToast(
+        "Memory Updated ✨"
+    );
+
+    return;
+}
         memories.push(memory);
 
         localStorage.setItem(
@@ -739,63 +765,97 @@ function searchByDate(){
 
 function editMemory(index){
 
-    let memories =
-    JSON.parse(
-        localStorage.getItem(memoryKey)
-    ) || [];
-
-    let memory =
-    memories[index];
-
-
-    let newTitle =
-    prompt(
-        "Edit Title",
-        memory.title
-    );
-
-    if(newTitle === null) return;
-
-
-    let newContent =
-    prompt(
-        "Edit Memory",
-        memory.content
-    );
-
-    if(newContent === null) return;
-
-
-    let newMood =
-    prompt(
-        "Edit Mood",
-        memory.mood
-    );
-
-    if(newMood === null) return;
-
-
-    memories[index].title =
-    newTitle;
-
-    memories[index].content =
-    newContent;
-
-    memories[index].mood =
-    newMood;
-
-
     localStorage.setItem(
-
-        memoryKey,
-
-        JSON.stringify(memories)
+        "editingMemoryIndex",
+        index
     );
 
-
-    loadMemories();
-
-    showToast(
-        "Memory updated ✨"
-    );
+    window.location.href =
+    "write.html";
 }
+/* =========================================
+   LOAD EDIT MEMORY INTO WRITE PAGE
+========================================= */
+
+document.addEventListener(
+
+    "DOMContentLoaded",
+
+    ()=>{
+
+        let editIndex =
+        localStorage.getItem(
+            "editingMemoryIndex"
+        );
+
+        if(editIndex !== null){
+
+            let memories =
+            JSON.parse(
+                localStorage.getItem(memoryKey)
+            ) || [];
+
+            let memory =
+            memories[editIndex];
+
+            if(memory){
+
+                let titleInput =
+                document.getElementById(
+                    "memoryTitle"
+                );
+
+                let textInput =
+                document.getElementById(
+                    "memoryText"
+                );
+
+                let moodInput =
+                document.getElementById(
+                    "mood"
+                );
+
+                let favoriteInput =
+                document.getElementById(
+                    "favoriteMemory"
+                );
+
+                let lockInput =
+                document.getElementById(
+                    "lockMemory"
+                );
+
+
+                if(titleInput){
+
+                    titleInput.value =
+                    memory.title || "";
+                }
+
+                if(textInput){
+
+                    textInput.value =
+                    memory.content || "";
+                }
+
+                if(moodInput){
+
+                    moodInput.value =
+                    memory.mood || "😊 Happy";
+                }
+
+                if(favoriteInput){
+
+                    favoriteInput.checked =
+                    memory.favorite || false;
+                }
+
+                if(lockInput){
+
+                    lockInput.checked =
+                    memory.locked || false;
+                }
+            }
+        }
+    }
+);
